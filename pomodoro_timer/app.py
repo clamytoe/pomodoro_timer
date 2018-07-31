@@ -84,7 +84,7 @@ class Pomodoro:
 def get_args():
     """Argument parser."""
     parser = argparse.ArgumentParser(description="Pomodoro Productivity Timer")
-    parser.add_argument("-d", "--duration", type=int, help="How long you going to work for, in hours", required=True)
+    parser.add_argument("duration", type=int, help="How long you going to work for, in hours")
     parser.add_argument("-b", "--breaks", type=int, help="How long the breaks should be", required=False)
     parser.add_argument("-i", "--interval", type=int, help="Minutes to work before taking a break", required=False)
     args = parser.parse_args()
