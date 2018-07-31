@@ -5,11 +5,10 @@ app.py
 Pomodoro Timer
 """
 import argparse
-
 from datetime import datetime, timedelta
 from os import system
-from time import sleep
 from sys import platform
+from time import sleep
 
 from .config import PLAYER, SOUNDS
 from .log_init import setup_logging
