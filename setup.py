@@ -27,16 +27,7 @@ setup(
     url="https://github.com/clamytoe/pomodoro_timer",
     author=AUTHOR,
     author_email=EMAIL,
-    # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[
-        # How mature is this project? Common values are
-        #   1 - Planning
-        #   2 - Pre-Alpha
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
-        #   6 - Mature
-        #   7 - Inactive
         "Development Status :: 3 - Alpha",
         "Intended Audience :: End Users/Desktop",
         "Topic :: Utilities",
