@@ -44,6 +44,7 @@ class Pomodoro:
     def start(self):
         """Starts the timer."""
         self.start_time = datetime.now()
+        print(f"duration: {self.duration}")
         self.stop_time = self.start_time + timedelta(seconds=self.duration)
         print(f"Work session ends at: {str(self.stop_time).split('.')[0]}")
         try:
@@ -95,20 +96,17 @@ def get_args():
 
 def main():
     """Main entry point of the application."""
-    if platform is not "linux":
-        print("Sorry, your platform is not supported!")
+    if platform != "linux":
+        print(f"Sorry, your platform {platform} is not supported!")
         exit(1)
 
-    duration, breaks, interval = get_args()
-    params = f"{duration}"
+    params = get_args()
 
-    if breaks:
-        params += f" breaks={breaks}"
+    duration = params[0]
+    breaks = params[1] if params[1] else 5
+    interval = params[2] if params[2] else 25
 
-    if interval:
-        params += f" interval={interval}"
-
-    timer = Pomodoro(params)
+    timer = Pomodoro(duration, breaks=breaks, interval=interval)
     timer.start()
 
 
