@@ -15,6 +15,7 @@ from .config import PLAYER, SOUNDS
 from .log_init import setup_logging
 
 logger = setup_logging()
+Params = namedtuple("Params", "duration breaks interval")
 
 
 class Pomodoro:
@@ -44,13 +45,19 @@ class Pomodoro:
         self.break_time = None
         self.work_time = None
         self.status = self.MODES[0]
+        self.rounds = 0
+
+    def get_input(self):
+        key = input("Hit any key to continue, [q]uit: ")
+        if key.lower() == "q":
+            self.bye_message()
 
     def start(self):
         """Starts the timer."""
         self.start_time = datetime.now()
-        print(f"duration: {self.duration}")
         self.stop_time = self.start_time + timedelta(seconds=self.duration)
         print(f"Work session ends at: {str(self.stop_time).split('.')[0]}")
+        self.start_timer()
 
     def start_break(self):
         """Starts the break."""
@@ -66,26 +73,40 @@ class Pomodoro:
         self.break_time = datetime.now() + timedelta(seconds=self.interval)
         print(f"Next break: {str(self.break_time).split('.')[0]}")
         self.status = self.MODES[1]
+        self.rounds += 1
         self.play("begin")
 
     def start_timer(self):
         try:
             while datetime.now() < self.stop_time:
-                self.start_interval()
-                self.pause(self.interval)
-                self.start_break()
-                self.pause(self.break_length)
-            print("Nicely done! Go take an extended break.")
+                if self.rounds == 4:
+                    print("Nicely done! Go take an extended break.")
+                    self.play("done")
+                    self.bye_message()
+                else:
+                    self.start_interval()
+                    self.pause(self.interval)
+                    self.get_input()
+                    self.start_break()
+                    self.pause(self.break_length)
+                    self.get_input()
+            print("Nicely done! You're all done!.")
             self.play("done")
+            self.bye_message()
         except KeyboardInterrupt:
             print("Timer stopped by the user.")
+
+    @staticmethod
+    def bye_message():
+        print("Thanks for using clamytoe's Pomodoro Timer!")
+        exit()
 
     @staticmethod
     def play(sound):
         """
         Plays the sound file.
 
-        :param sound: str - the name of the sound file to play
+        :param sound: str - the path and name of the sound file to play
         :return: None
         """
         system(f"{PLAYER} {SOUNDS.get(sound, SOUNDS['warning'])}")
@@ -97,7 +118,6 @@ class Pomodoro:
 
 def get_args():
     """Argument parser."""
-    Params = namedtuple("Params", "duration breaks interval")
     parser = argparse.ArgumentParser(description="Pomodoro Productivity Timer")
     parser.add_argument("duration", type=int, help="How long you going to work for, in hours")
     parser.add_argument("-b", "--breaks", type=int, help="How long the breaks should be", required=False)
