@@ -23,6 +23,7 @@ class Pomodoro:
     Given the amount of hours you want to spend on your task, it will prompt you to take a 5 minute break every 25
     minutes. At the end it sounds alarm to let you know that the time that you specified is up.
     """
+    MODES = "idle active break".upper().split()
 
     def __init__(self, duration, breaks=5, interval=25):
         """
@@ -40,6 +41,9 @@ class Pomodoro:
         self.break_length = breaks * self.minute
         self.start_time = None
         self.stop_time = None
+        self.break_time = None
+        self.work_time = None
+        self.status = self.MODES[0]
 
     def start(self):
         """Starts the timer."""
@@ -47,28 +51,34 @@ class Pomodoro:
         print(f"duration: {self.duration}")
         self.stop_time = self.start_time + timedelta(seconds=self.duration)
         print(f"Work session ends at: {str(self.stop_time).split('.')[0]}")
+
+    def start_break(self):
+        """Starts the break."""
+        self.break_time = None
+        self.work_time = datetime.now() + timedelta(seconds=self.break_length)
+        print(f"Start again at: {str(self.work_time).split('.')[0]}")
+        self.status = self.MODES[2]
+        self.play("break")
+
+    def start_interval(self):
+        """Starts the interval timer."""
+        self.work_time = None
+        self.break_time = datetime.now() + timedelta(seconds=self.interval)
+        print(f"Next break: {str(self.break_time).split('.')[0]}")
+        self.status = self.MODES[1]
+        self.play("begin")
+
+    def start_timer(self):
         try:
             while datetime.now() < self.stop_time:
                 self.start_interval()
+                self.pause(self.interval)
                 self.start_break()
+                self.pause(self.break_length)
             print("Nicely done! Go take an extended break.")
             self.play("done")
         except KeyboardInterrupt:
             print("Timer stopped by the user.")
-
-    def start_break(self):
-        """Starts the break."""
-        start_work = datetime.now() + timedelta(seconds=self.break_length)
-        print(f"Start again at: {str(start_work).split('.')[0]}")
-        self.play("break")
-        sleep(self.break_length)
-
-    def start_interval(self):
-        """Starts the interval timer."""
-        break_time = datetime.now() + timedelta(seconds=self.interval)
-        print(f"Next break: {str(break_time).split('.')[0]}")
-        self.play("begin")
-        sleep(self.interval)
 
     @staticmethod
     def play(sound):
@@ -79,6 +89,10 @@ class Pomodoro:
         :return: None
         """
         system(f"{PLAYER} {SOUNDS.get(sound, SOUNDS['warning'])}")
+
+    @staticmethod
+    def pause(length):
+        sleep(length)
 
 
 def get_args():
