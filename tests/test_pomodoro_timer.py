@@ -4,7 +4,6 @@ test_pomodoro_timer.py
 Tests for pomodoro_timer.
 """
 import pytest
-from collections import namedtuple
 from pomodoro_timer import app
 
 
@@ -28,7 +27,7 @@ def test_help(capfd):
 @pytest.fixture(params=["1"])
 def test_help():
     params = app.get_args()
-    assert isinstance(params, namedtuple)
+    assert isinstance(params, app.Params)
     assert params.duration == 1
     assert params.breaks == 5
     assert params.interval == 25
@@ -41,6 +40,7 @@ def test_class_initialization(timer):
     assert timer.break_length == 60
     assert timer.interval == 120
     assert timer.status == "IDLE"
+    assert timer.rounds == 0
 
 
 def test_start_interval(capfd, timer):
@@ -51,6 +51,7 @@ def test_start_interval(capfd, timer):
     assert timer.break_time is not None
     assert timer.work_time is None
     assert timer.status == "ACTIVE"
+    assert timer.rounds == 1
 
 
 def test_start_break(capfd, timer):
@@ -61,3 +62,8 @@ def test_start_break(capfd, timer):
     assert timer.work_time is not None
     assert timer.break_time is None
     assert timer.status == "BREAK"
+
+
+def test_done_alarm(timer):
+    timer.play("done")
+    pass
