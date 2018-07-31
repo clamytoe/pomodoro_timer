@@ -11,6 +11,10 @@
 
 NOTE: This app was generated with [Cookiecutter](https://github.com/audreyr/cookiecutter) along with [@clamytoe's](https://github.com/clamytoe) [toepack](https://github.com/clamytoe/toepack) project template.
 
+Since the application plays local system sound files, this project only works for those that are using Linux Mint. I'm using Mint 19 with Cinnamon, so not even sure if it would work on any other setup. If anyone one would like to add support for other platforms, PR's are welcome.
+
+I've added a config file that could be modified with your own sound files and player.
+
 ### Initial setup
 ```bash
 cd Projects
@@ -39,10 +43,29 @@ pip install -e .
 ```
 
 ## Usage
+The utility is easy to use. For instance, to work on a project for the next 4 hours. You would use the following command.
 ```bash
-pomodoro_timer
+pomodoro 4
 ```
 
+## Help
+For more options, use the built in help feature:
+```bash
+pomodoro --help
+usage: pomodoro [-h] [-b BREAKS] [-i INTERVAL] duration
+
+Pomodoro Productivity Timer
+
+positional arguments:
+  duration              How long you going to work for, in hours
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -b BREAKS, --breaks BREAKS
+                        How long the breaks should be
+  -i INTERVAL, --interval INTERVAL
+                        Minutes to work before taking a break
+```
 ## Contributing
 Contributions are very welcome. Tests can be run with with `pytest -v`, please ensure that all tests are passing before submitting a pull request. I have also included the following packages that should be used:
 * black
