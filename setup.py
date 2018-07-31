@@ -19,7 +19,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="pomodoro_timer",
+    name="pomodoro",
     version=VERSION,
     description="Simple no frills Pomodoro Timer that I made for my 100 day coding challenge. (pomodoro_timer)",
     long_description=long_description,
@@ -49,7 +49,7 @@ setup(
     license="MIT",
     entry_points={
         "console_scripts": [
-            "pomodoro_timer=pomodoro_timer.app:main"
+            "pomodoro=pomodoro_timer.app:main"
         ],
     },
     project_urls={
