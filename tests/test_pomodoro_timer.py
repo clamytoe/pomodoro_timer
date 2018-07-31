@@ -4,6 +4,7 @@ test_pomodoro_timer.py
 Tests for pomodoro_timer.
 """
 import pytest
+
 from pomodoro_timer import app
 
 
