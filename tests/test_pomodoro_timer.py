@@ -4,7 +4,7 @@ test_pomodoro_timer.py
 Tests for pomodoro_timer.
 """
 import pytest
-
+from collections import namedtuple
 from pomodoro_timer import app
 
 
@@ -28,10 +28,10 @@ def test_help(capfd):
 @pytest.fixture(params=["1"])
 def test_help():
     params = app.get_args()
-    assert isinstance(params, tuple)
-    assert params[0] == 1
-    assert params[1] == 5
-    assert params[2] == 25
+    assert isinstance(params, namedtuple)
+    assert params.duration == 1
+    assert params.breaks == 5
+    assert params.interval == 25
 
 
 def test_class_initialization(timer):

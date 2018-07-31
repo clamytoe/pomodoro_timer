@@ -5,6 +5,7 @@ app.py
 Pomodoro Timer
 """
 import argparse
+from collections import namedtuple
 from datetime import datetime, timedelta
 from os import system
 from sys import platform
@@ -96,6 +97,7 @@ class Pomodoro:
 
 def get_args():
     """Argument parser."""
+    Params = namedtuple("Params", "duration breaks interval")
     parser = argparse.ArgumentParser(description="Pomodoro Productivity Timer")
     parser.add_argument("duration", type=int, help="How long you going to work for, in hours")
     parser.add_argument("-b", "--breaks", type=int, help="How long the breaks should be", required=False)
@@ -104,7 +106,8 @@ def get_args():
     duration = args.duration
     breaks = args.breaks
     interval = args.interval
-    return duration, breaks, interval
+    params = Params(duration=duration, breaks=breaks, interval=interval)
+    return params
 
 
 def main():
@@ -115,9 +118,9 @@ def main():
 
     params = get_args()
 
-    duration = params[0]
-    breaks = params[1] if params[1] else 5
-    interval = params[2] if params[2] else 25
+    duration = params.duration
+    breaks = params.breaks if params.breaks else 5
+    interval = params.interval if params.interval else 25
 
     timer = Pomodoro(duration, breaks=breaks, interval=interval)
     timer.start()
