@@ -45,22 +45,21 @@ pip install -e .
 ## Usage
 The utility is easy to use. For instance, to work on a project for the next 4 hours. You would use the following command.
 ```bash
-pomodoro 4
+pomodoro -d 4
 ```
 
 ## Help
 For more options, use the built in help feature:
 ```bash
 pomodoro --help
-usage: pomodoro [-h] [-b BREAKS] [-i INTERVAL] duration
+usage: pomodoro [-h] [-d DURATION] [-b BREAKS] [-i INTERVAL]
 
 Pomodoro Productivity Timer
 
-positional arguments:
-  duration              How long you going to work for, in hours
-
 optional arguments:
   -h, --help            show this help message and exit
+  -d DURATION, --duration DURATION
+                        How long you going to work for, in hours
   -b BREAKS, --breaks BREAKS
                         How long the breaks should be
   -i INTERVAL, --interval INTERVAL
