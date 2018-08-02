@@ -81,6 +81,16 @@ Distributed under the terms of the [MIT](https://opensource.org/licenses/MIT) li
 If you encounter any problems, please [file an issue](https://github.com/clamytoe/toepack/issues) along with a detailed description.
 
 ## Changelog
+* **v0.2.0** FIXED: Bug where config file was not being found when program was not executed from the project's directory.
+* **v0.1.9** Modified logging config so that log level INFO messages would not show up in the console.
+* **v0.1.8** Started logging all of the steps taken so that I can aggregate a possible report feature later on.
+* **v0.1.7** Added default values so that the program can be run without parameters.
+* **v0.1.6** Added ability for user to be able to initiate the interval and break cycles.
+* **v0.1.5** Enabled BetterCodeHub and Travis CI integration.
+* **v0.1.4** Refactored in order to be able to increase test coverage.
+* **v0.1.3** Moved system configurable settings to a separate configuration file.
+* **v0.1.2** Added argparse in order to be able and modify key variables on the fly.
+* **v0.1.1** Modified my initial Jupyter Notebook code to run from the command line.
 * **v0.1.0** Initial commit.
 
 [python-version]:https://img.shields.io/badge/python-3.6.5-brightgreen.svg
