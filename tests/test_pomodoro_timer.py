@@ -20,22 +20,6 @@ def test_main_with_no_args():
         app.main()
 
 
-@pytest.fixture(params=["--help"])
-def test_help(capfd):
-    app.main()
-    output = capfd.readouterr()[0]
-    assert "usage" in output.strip()
-
-
-@pytest.fixture(params=["1"])
-def test_help():
-    params = app.get_args()
-    assert isinstance(params, app.Params)
-    assert params.duration == 1
-    assert params.breaks == 5
-    assert params.interval == 25
-
-
 def test_class_initialization(timer):
     assert timer.p_duration == 3600
     assert timer.p_breaks == 60
