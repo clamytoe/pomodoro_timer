@@ -27,8 +27,7 @@ class Pomodoro:
     MODES = "idle active respite".upper().split()
 
     def __init__(self, duration, breaks=5, interval=25):
-        """
-        Initializes the timer.
+        """Initializes the timer.
 
         :param duration: int - specifies how long the timer should run for, in hours.
         :param breaks:  int - specifies how long the breaks should be, in minutes.
@@ -49,15 +48,18 @@ class Pomodoro:
         self.rounds = 0
 
     def __repr__(self):
+        """Representation of the object."""
         class_name = str(self.__class__).split(".")[-1].replace(">", "")
         return f"{class_name}(duration:{self.duration} breaks={self.breaks} interval={self.interval})"
 
     def bye_message(self):
+        """Exit message."""
         logger.info(f"{self.status}, session: end")
         print("Thanks for using clamytoe's Pomodoro Timer!")
         exit()
 
     def get_input(self):
+        """Used to continue the program or quit it."""
         self.play("warning")
         key = input("Hit any key to continue, [q]uit: ")
         if key.lower() == "q":
@@ -66,6 +68,7 @@ class Pomodoro:
         self.play("break") if self.status == "ACTIVE" else self.play("begin")
 
     def pause(self, length):
+        """Pauses the program execution for the desired length of time."""
         sleep(length)
         print("Time for a break!") if self.status == "ACTIVE" else print("Time to get back to work!")
         self.get_input()
@@ -96,6 +99,7 @@ class Pomodoro:
         logger.info(f"{self.status}, interval: {self.rounds}")
 
     def start_timer(self):
+        """Initiates the timing cycle."""
         try:
             while datetime.now() < self.stop_time:
                 if self.rounds == 4:
@@ -119,8 +123,7 @@ class Pomodoro:
 
     @staticmethod
     def play(sound):
-        """
-        Plays the sound file.
+        """Plays the sound file.
 
         :param sound: str - the path and name of the sound file to play
         :return: None
