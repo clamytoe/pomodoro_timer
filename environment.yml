@@ -6,6 +6,7 @@ dependencies:
   - isort=4.3.4
   - pylint=1.9.2
   - pytest=3.6.2
+  - pytest-cov=2.5.1
   - python=3.6.6
   - pip:
     - black==18.6b4
