@@ -10,14 +10,10 @@ from pomodoro_timer import app
 logging.disable(logging.CRITICAL)
 
 
-@pytest.fixture
+@pytest.fixture()
 def timer():
-    return app.Pomodoro(1, breaks=1, interval=2)
-
-
-def test_main_with_no_args():
-    with pytest.raises(SystemExit):
-        app.main()
+    test_app = app.Pomodoro(1, breaks=1, interval=2)
+    return test_app
 
 
 def test_class_initialization(timer):
