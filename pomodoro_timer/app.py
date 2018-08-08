@@ -49,7 +49,7 @@ class Pomodoro:
 
     def __repr__(self):
         """Representation of the object."""
-        class_name = str(self.__class__).split(".")[-1].replace(">", "")
+        class_name = str(self.__class__).split(".")[-1].replace(">", "").replace("'", "")
         return f"{class_name}(duration:{self.duration} breaks={self.breaks} interval={self.interval})"
 
     def bye_message(self):
@@ -62,8 +62,11 @@ class Pomodoro:
         """Used to continue the program or quit it."""
         self.play("warning")
         key = input("Hit any key to continue, [q]uit: ")
-        if key.lower() == "q":
-            self.bye_message()
+        try:
+            if key.lower() == "q":
+                self.bye_message()
+        except AttributeError:
+            pass
 
         self.play("break") if self.status == "ACTIVE" else self.play("begin")
 
