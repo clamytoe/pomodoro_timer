@@ -88,7 +88,7 @@ class Pomodoro:
         start_time: datetime.datetime = datetime.datetime.now()
         self.stop_time = start_time + datetime.timedelta(seconds=self.p_duration)
         logger.info(f"{self.status}, session: start, projected: {self.stop_time}")
-        print(f"Session ends at: {str(self.stop_time).split('.')[0]}")
+        print(f"Session ends at: {str(self.stop_time).split('.')[0].split()[1]}")
         self.start_timer()
 
     def start_break(self) -> None:
@@ -98,7 +98,7 @@ class Pomodoro:
             self.start_extended_break(work_time)
         else:
             print("Go stretch your legs and get some water.")
-            print(f"Start again at: {str(work_time).split('.')[0]}")
+            print(f"Start again at: {str(work_time).split('.')[0].split()[1]}")
             self.status = self.MODES[2]
             logger.info(f"{self.status}, break_until: {work_time}")
 
@@ -106,14 +106,14 @@ class Pomodoro:
         extended = 10 * self.minute
         work_time += datetime.timedelta(seconds=extended)
         print("Time for an extended break!")
-        print(f"Start again at: {str(work_time).split('.')[0]}")
+        print(f"Start again at: {str(work_time).split('.')[0].split()[1]}")
         self.status = self.MODES[2]
         logger.info(f"{self.status}, break_until: {work_time}")
 
     def start_interval(self) -> None:
         """Starts the interval timer."""
         break_time: datetime.datetime = datetime.datetime.now() + datetime.timedelta(seconds=self.p_interval)
-        print(f"Next break at: {str(break_time).split('.')[0]}")
+        print(f"Next break at: {str(break_time).split('.')[0].split()[1]}")
         self.rounds += 1
         if self.status == "IDLE":
             self.play("begin")
