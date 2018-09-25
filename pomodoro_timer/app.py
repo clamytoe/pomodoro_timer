@@ -89,6 +89,7 @@ class Pomodoro:
         start_time: datetime.datetime = datetime.datetime.now()
         self.stop_time = start_time + datetime.timedelta(seconds=self.p_duration)
         logger.info(f"{self.status}, session: start, projected: {self.stop_time}")
+        self.clear_screen()
         print(f"Session ends at: {str(self.stop_time).split('.')[0].split()[1]}")
         self.start_timer()
 
