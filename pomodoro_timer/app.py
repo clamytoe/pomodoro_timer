@@ -7,7 +7,7 @@ Pomodoro Timer
 import argparse
 import datetime
 from collections import namedtuple
-from os import system
+from os import name, system
 from sys import platform
 from time import sleep
 from typing import Any, ClassVar, List, Tuple
@@ -63,6 +63,7 @@ class Pomodoro:
         """Used to continue the program or quit it."""
         self.play("warning")
         key: str = input("Hit any key to continue, [q]uit: ")
+        self.clear_screen()
         try:
             if key.lower() == "q":
                 self.bye_message()
@@ -125,6 +126,7 @@ class Pomodoro:
         try:
             while datetime.datetime.now() < self.stop_time:
                 if self.rounds == 8:
+                    self.clear_screen()
                     print("Nicely done! You've completed this session!.")
                     self.play("done")
                     self.rounds = 0
@@ -136,12 +138,22 @@ class Pomodoro:
                     self.pause(self.p_interval)
                     self.start_break()
                     self.pause(self.p_breaks)
-            print("Nicely done! You're all done!.")
+            self.clear_screen()
+            print("Nice, you're all done!.")
             self.play("done")
             self.bye_message()
         except KeyboardInterrupt:
+            self.clear_screen()
             logger.info("User terminated session.")
             print("Timer stopped by the user.")
+
+    @staticmethod
+    def clear_screen() -> None:
+        """
+        Clears the screen
+        :return: None
+        """
+        _: int = system("cls" if name == "nt" else "clear")
 
     @staticmethod
     def play(sound: str) -> None:
