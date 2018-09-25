@@ -94,6 +94,18 @@ class Pomodoro:
     def start_break(self) -> None:
         """Starts the break."""
         work_time: datetime.datetime = datetime.datetime.now() + datetime.timedelta(seconds=self.p_breaks)
+        if work_time > self.stop_time:
+            self.start_extended_break(work_time)
+        else:
+            print("Go stretch your legs and get some water.")
+            print(f"Start again at: {str(work_time).split('.')[0]}")
+            self.status = self.MODES[2]
+            logger.info(f"{self.status}, break_until: {work_time}")
+
+    def start_extended_break(self, work_time):
+        extended = 10 * self.minute
+        work_time += datetime.timedelta(seconds=extended)
+        print("Time for an extended break!")
         print(f"Start again at: {str(work_time).split('.')[0]}")
         self.status = self.MODES[2]
         logger.info(f"{self.status}, break_until: {work_time}")
@@ -112,8 +124,8 @@ class Pomodoro:
         """Initiates the timing cycle."""
         try:
             while datetime.datetime.now() < self.stop_time:
-                if self.rounds == 4:
-                    print("Nicely done! Go chillax for a bit.")
+                if self.rounds == 8:
+                    print("Nicely done! You've completed this session!.")
                     self.play("done")
                     self.rounds = 0
                     self.status = self.MODES[0]
@@ -166,7 +178,7 @@ def main() -> None:
 
     params: Params = get_args()
 
-    duration: int = params.duration if params.duration else 2
+    duration: int = params.duration if params.duration else 4
     breaks: int = params.breaks if params.breaks else 5
     interval: int = params.interval if params.interval else 25
 
