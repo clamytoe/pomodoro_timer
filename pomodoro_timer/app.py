@@ -44,7 +44,7 @@ class Pomodoro:
         self.p_interval: int = self.interval * self.minute
         self.p_breaks: int = self.breaks * self.minute
         self.status: str = self.MODES[0]
-        self.rounds: int = 0
+        self.rounds: int = 1
         self.session_start: datetime.datetime = datetime.datetime.now()
         self.stop_time: datetime.datetime = self.session_start + datetime.timedelta(seconds=self.p_duration)
 
@@ -115,7 +115,7 @@ class Pomodoro:
     def start_interval(self) -> None:
         """Starts the interval timer."""
         break_time: datetime.datetime = datetime.datetime.now() + datetime.timedelta(seconds=self.p_interval)
-        print(f"Next break at: {str(break_time).split('.')[0].split()[1]}")
+        print(f"[{self.rounds}] Next break at: {str(break_time).split('.')[0].split()[1]}")
         self.rounds += 1
         if self.status == "IDLE":
             self.play("begin")
