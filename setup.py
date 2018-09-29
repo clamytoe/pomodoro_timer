@@ -3,9 +3,10 @@ setup.py
 
 Setup for installing the package.
 """
-from setuptools import setup, find_packages
-from os import path
 from io import open
+from os import path
+
+from setuptools import find_packages, setup
 
 import pomodoro_timer
 
@@ -38,13 +39,9 @@ setup(
     packages=find_packages(exclude=["contrib", "docs", "tests"]),
     install_requires=["pytest>=3.6.2"],
     license="MIT",
-    entry_points={
-        "console_scripts": [
-            "pomodoro=pomodoro_timer.app:main"
-        ],
-    },
+    entry_points={"console_scripts": ["pomodoro=pomodoro_timer.app:main"]},
     project_urls={
-        'Bug Reports': 'https://github.com/clamytoe/pomodoro_timer/issues',
-        'Source': 'https://github.com/clamytoe/pomodoro_timer/',
+        "Bug Reports": "https://github.com/clamytoe/pomodoro_timer/issues",
+        "Source": "https://github.com/clamytoe/pomodoro_timer/",
     },
 )
