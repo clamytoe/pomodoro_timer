@@ -25,6 +25,7 @@ class Pomodoro:
     Given the amount of hours you want to spend on your task, it will prompt you to take a 5 minute break every 25
     minutes. At the end it sounds an alarm to let you know that the time that you specified is up.
     """
+
     MODES: ClassVar[List[str]] = "idle active respite".upper().split()
 
     def __init__(self, duration: int, breaks: int = 5, interval: int = 25) -> None:
@@ -46,11 +47,15 @@ class Pomodoro:
         self.status: str = self.MODES[0]
         self.rounds: int = 1
         self.session_start: datetime.datetime = datetime.datetime.now()
-        self.stop_time: datetime.datetime = self.session_start + datetime.timedelta(seconds=self.p_duration)
+        self.stop_time: datetime.datetime = self.session_start + datetime.timedelta(
+            seconds=self.p_duration
+        )
 
     def __repr__(self) -> str:
         """Representation of the object."""
-        class_name: str = str(self.__class__).split(".")[-1].replace(">", "").replace("'", "")
+        class_name: str = str(self.__class__).split(".")[-1].replace(">", "").replace(
+            "'", ""
+        )
         return f"{class_name}(duration:{self.duration} breaks={self.breaks} interval={self.interval})"
 
     def bye_message(self) -> None:
@@ -90,12 +95,16 @@ class Pomodoro:
         self.stop_time = start_time + datetime.timedelta(seconds=self.p_duration)
         logger.info(f"{self.status}, session: start, projected: {self.stop_time}")
         self.clear_screen()
-        print(f"Session ends approximately at: {str(self.stop_time).split('.')[0].split()[1]}")
+        print(
+            f"Session ends approximately at: {str(self.stop_time).split('.')[0].split()[1]}"
+        )
         self.start_timer()
 
     def start_break(self) -> None:
         """Starts the break."""
-        work_time: datetime.datetime = datetime.datetime.now() + datetime.timedelta(seconds=self.p_breaks)
+        work_time: datetime.datetime = datetime.datetime.now() + datetime.timedelta(
+            seconds=self.p_breaks
+        )
         if self.rounds % 4 == 0:
             self.start_extended_break(work_time)
         else:
@@ -114,8 +123,12 @@ class Pomodoro:
 
     def start_interval(self) -> None:
         """Starts the interval timer."""
-        break_time: datetime.datetime = datetime.datetime.now() + datetime.timedelta(seconds=self.p_interval)
-        print(f"[{self.rounds}] Next break at: {str(break_time).split('.')[0].split()[1]}")
+        break_time: datetime.datetime = datetime.datetime.now() + datetime.timedelta(
+            seconds=self.p_interval
+        )
+        print(
+            f"[{self.rounds}] Next break at: {str(break_time).split('.')[0].split()[1]}"
+        )
         self.rounds += 1
         if self.status == "IDLE":
             self.play("begin")
@@ -171,9 +184,23 @@ class Pomodoro:
 def get_args() -> Params:
     """Argument parser."""
     parser = argparse.ArgumentParser(description="Pomodoro Productivity Timer")
-    parser.add_argument("-d", "--duration", type=int, help="How long you going to work for, in hours", required=False)
-    parser.add_argument("-b", "--breaks", type=int, help="How long the breaks should be", required=False)
-    parser.add_argument("-i", "--interval", type=int, help="Minutes to work before taking a break", required=False)
+    parser.add_argument(
+        "-d",
+        "--duration",
+        type=int,
+        help="How long you going to work for, in hours",
+        required=False,
+    )
+    parser.add_argument(
+        "-b", "--breaks", type=int, help="How long the breaks should be", required=False
+    )
+    parser.add_argument(
+        "-i",
+        "--interval",
+        type=int,
+        help="Minutes to work before taking a break",
+        required=False,
+    )
     args = parser.parse_args()
     duration: int = args.duration
     breaks: int = args.breaks
