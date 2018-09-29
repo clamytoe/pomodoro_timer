@@ -4,7 +4,6 @@ test_pomodoro_timer.py
 Tests for pomodoro_timer.
 """
 import logging
-
 from unittest.mock import patch
 
 import pytest
@@ -25,7 +24,7 @@ def test_class_initialization(timer):
     assert timer.p_breaks == 60
     assert timer.p_interval == 120
     assert timer.status == "IDLE"
-    assert timer.rounds == 0
+    assert timer.rounds == 1
 
 
 def test_start_interval(capfd, timer):
@@ -33,7 +32,7 @@ def test_start_interval(capfd, timer):
     output = capfd.readouterr()[0]
     assert "Next break" in output
     assert timer.status == "ACTIVE"
-    assert timer.rounds == 1
+    assert timer.rounds == 2
 
 
 def test_start_break(capfd, timer):
