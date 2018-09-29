@@ -90,13 +90,13 @@ class Pomodoro:
         self.stop_time = start_time + datetime.timedelta(seconds=self.p_duration)
         logger.info(f"{self.status}, session: start, projected: {self.stop_time}")
         self.clear_screen()
-        print(f"Session ends at: {str(self.stop_time).split('.')[0].split()[1]}")
+        print(f"Session ends approximately at: {str(self.stop_time).split('.')[0].split()[1]}")
         self.start_timer()
 
     def start_break(self) -> None:
         """Starts the break."""
         work_time: datetime.datetime = datetime.datetime.now() + datetime.timedelta(seconds=self.p_breaks)
-        if work_time > self.stop_time:
+        if self.rounds % 4 == 0:
             self.start_extended_break(work_time)
         else:
             print("Go stretch your legs and get some water.")
@@ -133,7 +133,8 @@ class Pomodoro:
                     self.rounds = 0
                     self.status = self.MODES[0]
                     logger.info(f"{self.status}, intervals: completed")
-                    self.get_input()
+                    # self.get_input()
+                    exit()
                 else:
                     self.start_interval()
                     self.pause(self.p_interval)
