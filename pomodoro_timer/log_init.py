@@ -3,12 +3,10 @@ log_init.py
 
 Initializes logging for the project.
 """
-import os
 import json
 import logging.config
-
+import os
 from typing import Any, Dict, Optional
-
 
 module_path: str = __file__
 pwd: str = "/".join(module_path.split("/")[:-1])
