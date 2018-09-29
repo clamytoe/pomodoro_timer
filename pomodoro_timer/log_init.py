@@ -15,9 +15,9 @@ log_config: str = os.path.join(pwd, filename)
 
 
 def setup_logging(
-        default_path: str = log_config,
-        default_level: int = logging.INFO,
-        env_key: str = "LOG_CFG"
+    default_path: str = log_config,
+    default_level: int = logging.INFO,
+    env_key: str = "LOG_CFG",
 ) -> Any:
     """Setup logging configuration"""
     path: str = default_path
